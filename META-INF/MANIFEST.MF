@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DataNucleus JPA Query
+Bundle-SymbolicName: org.datanucleus.jpa.query;singleton:=true
+Bundle-Version: 3.0.3
+Require-Bundle: org.datanucleus;bundle-version="3.0.0"
+Bundle-Vendor: DataNucleus
+Import-Package: javax.annotation.processing;resolution:=optional,
+ javax.lang.model;resolution:=optional,
+ javax.lang.model.element;resolution:=optional,
+ javax.lang.model.type;resolution:=optional,
+ javax.lang.model.util;resolution:=optional,
+ javax.persistence;version="2.0.0",
+ javax.persistence.criteria;version="2.0.0",
+ javax.persistence.metamodel;version="2.0.0",
+ javax.persistence.spi;version="2.0.0",
+ javax.tools;resolution:=optional
+Export-Package: org.datanucleus.jpa.query;version="3.0.3"
