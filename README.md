@@ -19,6 +19,6 @@ __Javadocs__ : [3.0](http://www.datanucleus.org/javadocs/jpa.query/3.0/), [2.1](
 
 __Download(Releases)__ : [Maven Central](http://central.maven.org/maven2/org/datanucleus/datanucleus-jpa-query)
 
-__Download(Nightly)__ : [Nightly Builds](http://central.maven.org/maven2/org/datanucleus/datanucleus-jpa-query)
+__Download(Nightly)__ : [Nightly Builds](http://www.datanucleus.org/downloads/maven2-nightly/org/datanucleus/datanucleus-jpa-query)
 
 __Dependencies__ : See file [pom.xml](pom.xml)
