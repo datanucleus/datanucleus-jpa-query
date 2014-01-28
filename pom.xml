@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>datanucleus-jpa-query</artifactId>
-    <version>3.0.4-SNAPSHOT</version>
+    <version>4.0.0-m1-SNAPSHOT</version>
 
     <name>DataNucleus JPA Query</name>
     <description>
@@ -17,7 +17,7 @@
     </description>
 
     <properties>
-        <dn.core.version>3.0</dn.core.version>
+        <dn.core.version>4.0.0-m1-SNAPSHOT</dn.core.version>
     </properties>
 
     <scm>
