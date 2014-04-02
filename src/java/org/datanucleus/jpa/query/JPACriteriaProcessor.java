@@ -69,18 +69,18 @@ import org.datanucleus.util.AnnotationProcessorUtils.TypeCategory;
  * created for S.</li>
  * <li>For every persistent non-collection-valued attribute y declared by class X, where the type of y is Y, 
  * the metamodel class must contain a declaration as follows:
- * <pre>public static volatile SingularAttribute<X, Y> y;</pre></li>
+ * <pre>public static volatile SingularAttribute&lt;X, Y&gt; y;</pre></li>
  * <li>For every persistent collection-valued attribute z declared by class X, where the element type
  * of z is Z, the metamodel class must contain a declaration as follows:
  *     <ul>
  *     <li>if the collection type of z is java.util.Collection, then 
- *     <pre>public static volatile CollectionAttribute<X, Z> z;</pre></li>
+ *     <pre>public static volatile CollectionAttribute&lt;X, Z&gt; z;</pre></li>
  *     <li>if the collection type of z is java.util.Set, then
- *     <pre>public static volatile SetAttribute<X, Z> z;</pre></li>
+ *     <pre>public static volatile SetAttribute&lt;X, Z&gt; z;</pre></li>
  *     <li>if the collection type of z is java.util.List, then
- *     <pre>public static volatile ListAttribute<X, Z> z;</pre></li>
+ *     <pre>public static volatile ListAttribute&lt;X, Z&gt; z;</pre></li>
  *     <li>if the collection type of z is java.util.Map, then
- *     <pre>public static volatile MapAttribute<X, K, Z> z;</pre>
+ *     <pre>public static volatile MapAttribute&lt;X, K, Z&gt; z;</pre>
  *     where K is the type of the key of the map in class X</li>
  *     </ul>
  * </li>
