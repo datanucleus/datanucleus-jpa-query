@@ -53,8 +53,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.tools.JavaFileObject;
 
-import org.datanucleus.util.AnnotationProcessorUtils;
-import org.datanucleus.util.AnnotationProcessorUtils.TypeCategory;
+import org.datanucleus.jpa.query.AnnotationProcessorUtils.TypeCategory;
 
 /**
  * Annotation processor for JPA to generate "dummy" classes for all Entity classes for use with Criteria API.

@@ -16,10 +16,6 @@
         Plugin for DataNucleus providing annotation processing for JPA queries
     </description>
 
-    <properties>
-        <dn.core.version>4.0.0-m3</dn.core.version>
-    </properties>
-
     <scm>
         <connection>scm:git:git@github.com:datanucleus/${project.artifactId}.git</connection>
         <developerConnection>scm:git:git@github.com:datanucleus/${project.artifactId}.git</developerConnection>
@@ -27,12 +23,6 @@
     </scm>
 
     <dependencies>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>[${dn.core.version}, )</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jpa_2.0_spec</artifactId>
@@ -46,8 +36,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <compilerArgument> -proc:none</compilerArgument>
                 </configuration>
             </plugin>
@@ -58,7 +48,6 @@
                     <instructions>
                         <Bundle-SymbolicName>org.datanucleus.jpa.query;singleton:=true</Bundle-SymbolicName>
                         <Import-Package>
-                            org.datanucleus*;version="${dn.core.version}",
                             *;resolution:=optional
                         </Import-Package>
                     </instructions>
