@@ -88,7 +88,9 @@ import org.datanucleus.jpa.query.AnnotationProcessorUtils.TypeCategory;
 @SupportedAnnotationTypes({"javax.persistence.Entity", "javax.persistence.Embeddable", "javax.persistence.MappedSuperclass"})
 public class JPACriteriaProcessor extends AbstractProcessor
 {
-    String suffix = "_";
+    private static final String CLASS_NAME_SUFFIX = "_";
+
+    private static final String CODE_INDENT = "    ";
 
     Types typesHandler;
 
@@ -136,7 +138,7 @@ public class JPACriteriaProcessor extends AbstractProcessor
         String className = elementUtils.getBinaryName(el).toString();
         String pkgName = className.substring(0, className.lastIndexOf('.'));
         String classSimpleName = className.substring(className.lastIndexOf('.') + 1);
-        String classNameNew = className + suffix;
+        String classNameNew = className + CLASS_NAME_SUFFIX;
         System.out.println("DataNucleus : JPA Criteria - " + className + " -> " + classNameNew);
 
         Map<String, TypeMirror> genericLookups = null;
@@ -163,11 +165,11 @@ public class JPACriteriaProcessor extends AbstractProcessor
                 w.append("import javax.persistence.metamodel.*;\n");
                 w.append("\n");
                 w.append("@StaticMetamodel(" + classSimpleName + ".class)\n");
-                w.append("public class " + classSimpleName + suffix);
+                w.append("public class " + classSimpleName + CLASS_NAME_SUFFIX);
                 if (superEl != null)
                 {
                     String superClassName = elementUtils.getBinaryName(superEl).toString();
-                    w.append(" extends ").append(superClassName + suffix);
+                    w.append(" extends ").append(superClassName + CLASS_NAME_SUFFIX);
                 }
                 w.append("\n");
                 w.append("{\n");
@@ -220,13 +222,11 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                 (member.getKind() == ElementKind.METHOD && AnnotationProcessorUtils.isJavaBeanGetter((ExecutableElement) member)))
                             {
                                 TypeMirror type = AnnotationProcessorUtils.getDeclaredType(member);
-                                String typeName =
-                                    AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, type, true);
+                                String typeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, type, true);
                                 TypeCategory cat = AnnotationProcessorUtils.getTypeCategoryForTypeMirror(typeName);
                                 String memberName = AnnotationProcessorUtils.getMemberName(member);
 
-                                w.append("    public static volatile " + cat.getTypeName());
-                                w.append("<" + classSimpleName + ", ");
+                                w.append(CODE_INDENT).append("public static volatile " + cat.getTypeName()).append("<" + classSimpleName + ", ");
                                 if (cat == TypeCategory.ATTRIBUTE)
                                 {
                                     if (type instanceof PrimitiveType)
@@ -297,18 +297,15 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                 else if (cat == TypeCategory.MAP)
                                 {
                                     TypeMirror keyType = getTypeParameter(member, type, 0, false);
-                                    String keyTypeName =
-                                        AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, keyType, true);
+                                    String keyTypeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, keyType, true);
                                     TypeMirror valueType = getTypeParameter(member, type, 1, true);
-                                    String valueTypeName = 
-                                        AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, valueType, true);
+                                    String valueTypeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, valueType, true);
                                     w.append(keyTypeName + ", " + valueTypeName);
                                 }
                                 else
                                 {
                                     TypeMirror elementType = getTypeParameter(member, type, 0, true);
-                                    String elementTypeName = 
-                                        AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, elementType, true);
+                                    String elementTypeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, elementType, true);
                                     w.append(elementTypeName);
                                 }
                                 w.append("> " + memberName + ";\n");
