@@ -265,33 +265,33 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                         }
                                         else
                                         {
-                                            String name = type.toString();
-                                            TypeMirror target = null;
-                                            for (int i=0;i<annotationsWithTargetEntity.length;i++)
-                                            {
-                                                Object targetValue = AnnotationProcessorUtils.getValueForAnnotationAttribute(member, annotationsWithTargetEntity[i], "targetEntity");
-                                                if (targetValue != null)
-                                                {
-                                                    target = (TypeMirror)targetValue;
-                                                    break;
-                                                }
-                                            }
-                                            if (target != null)
-                                            {
-                                                name = target.toString();
-                                            }
-                                            else if (genericLookups != null && genericLookups.containsKey(name))
-                                            {
-                                                // This is a generic type, so replace with the bound type
-                                                // equates to "T extends MyOtherType" and putting "MyOtherType" in
-                                                name = genericLookups.get(name).toString();
-                                            }
-                                            w.append(name);
+                                            w.append(type.toString());
                                         }
                                     }
                                     else
                                     {
-                                        w.append(type.toString());
+                                        String name = type.toString();
+                                        TypeMirror target = null;
+                                        for (int i=0;i<annotationsWithTargetEntity.length;i++)
+                                        {
+                                            Object targetValue = AnnotationProcessorUtils.getValueForAnnotationAttribute(member, annotationsWithTargetEntity[i], "targetEntity");
+                                            if (targetValue != null)
+                                            {
+                                                target = (TypeMirror)targetValue;
+                                                break;
+                                            }
+                                        }
+                                        if (target != null)
+                                        {
+                                            name = target.toString();
+                                        }
+                                        else if (genericLookups != null && genericLookups.containsKey(name))
+                                        {
+                                            // This is a generic type, so replace with the bound type
+                                            // equates to "T extends MyOtherType" and putting "MyOtherType" in
+                                            name = genericLookups.get(name).toString();
+                                        }
+                                        w.append(name);
                                     }
                                 }
                                 else if (cat == TypeCategory.MAP)
