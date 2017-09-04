@@ -229,6 +229,12 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                 w.append(CODE_INDENT).append("public static volatile " + cat.getTypeName()).append("<" + classSimpleName + ", ");
                                 if (cat == TypeCategory.ATTRIBUTE)
                                 {
+                                    if (type instanceof DeclaredType)
+                                    {
+                                        // Note this works for things like Bean Validation 2.0 @NotNull which comes through as "(@javax.validation.constraints.NotNull :: theUserType)"
+                                        type = ((DeclaredType)type).asElement().asType();
+                                    }
+
                                     if (type instanceof PrimitiveType)
                                     {
                                         if (type.toString().equals("long"))
@@ -336,7 +342,7 @@ public class JPACriteriaProcessor extends AbstractProcessor
         }
         if (type.getKind() != TypeKind.DECLARED)
         {
-            return null;
+            return ((DeclaredType)type).asElement().asType();
         }
 
         if (checkTarget) 
