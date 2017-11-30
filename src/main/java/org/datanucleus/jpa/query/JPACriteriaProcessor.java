@@ -216,7 +216,8 @@ public class JPACriteriaProcessor extends AbstractProcessor
                             }
                         }
 
-                        if (!isTransient)
+                        // Don't create static meta-model for STATIC or transient members
+                        if (!member.getModifiers().contains(javax.lang.model.element.Modifier.STATIC) && !isTransient)
                         {
                             if (member.getKind() == ElementKind.FIELD ||
                                 (member.getKind() == ElementKind.METHOD && AnnotationProcessorUtils.isJavaBeanGetter((ExecutableElement) member)))
