@@ -309,6 +309,12 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                     String valueTypeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, valueType, true);
                                     w.append(keyTypeName + ", " + valueTypeName);
                                 }
+                                else if (cat == TypeCategory.COLLECTION || cat == TypeCategory.LIST || cat == TypeCategory.SET)
+                                {
+                                    TypeMirror elementType = getTypeParameter(member, type, 0, true);
+                                    String elementTypeName = AnnotationProcessorUtils.getDeclaredTypeName(processingEnv, elementType, true);
+                                    w.append(elementTypeName);
+                                }
                                 else
                                 {
                                     TypeMirror elementType = getTypeParameter(member, type, 0, true);

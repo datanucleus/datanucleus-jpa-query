@@ -31,7 +31,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -347,20 +346,19 @@ public class AnnotationProcessorUtils
         {
             return "java.lang.Object";
         }
-        if (type.getKind() == TypeKind.ARRAY)
+        else if (type.getKind() == TypeKind.ARRAY)
         {
-            TypeMirror comp = ((ArrayType)type).getComponentType();
-            return getDeclaredTypeName(processingEnv, comp, false);
+            return type.toString();
         }
-
-        if (box && AnnotationProcessorUtils.typeIsPrimitive(type))
+        else if (box && AnnotationProcessorUtils.typeIsPrimitive(type))
         {
             type = processingEnv.getTypeUtils().boxedClass((PrimitiveType)type).asType();
         }
-        if (AnnotationProcessorUtils.typeIsPrimitive(type))
+        else if (AnnotationProcessorUtils.typeIsPrimitive(type))
         {
-            return ((PrimitiveType)type).toString();
+            return type.toString();
         }
+
         return processingEnv.getTypeUtils().asElement(type).toString();
     }
 }
