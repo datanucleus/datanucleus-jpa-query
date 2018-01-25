@@ -40,6 +40,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.persistence.AccessType;
@@ -230,9 +231,12 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                 w.append(CODE_INDENT).append("public static volatile " + cat.getTypeName()).append("<" + classSimpleName + ", ");
                                 if (cat == TypeCategory.ATTRIBUTE)
                                 {
-                                    if (type instanceof DeclaredType)
+                                    if (type.getKind() == TypeKind.DECLARED && type instanceof DeclaredType && type instanceof TypeVariable)
                                     {
-                                        // Note this works for things like Bean Validation 2.0 @NotNull which comes through as "(@javax.validation.constraints.NotNull :: theUserType)"
+                                        // This was needed to detect such as a field with a Bean Validation 2.0 @NotNull, which comes through as 
+                                        // "(@javax.validation.constraints.NotNull :: theUserType)", so this converts that to "theUserType".
+                                        // TODO Is this the best way to trap that case ? (i.e "TypeVariable")?! probably not, so find a better way
+                                        // Note that this is also a WildcardType, ReferenceType, ArrayType
                                         type = ((DeclaredType)type).asElement().asType();
                                     }
 
@@ -294,8 +298,7 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                         }
                                         else if (genericLookups != null && genericLookups.containsKey(name))
                                         {
-                                            // This is a generic type, so replace with the bound type
-                                            // equates to "T extends MyOtherType" and putting "MyOtherType" in
+                                            // This is a generic type, so replace with the bound type; equates to "T extends MyOtherType" and putting "MyOtherType" in
                                             name = genericLookups.get(name).toString();
                                         }
                                         w.append(name);
