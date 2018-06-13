@@ -163,8 +163,10 @@ public class JPACriteriaProcessor extends AbstractProcessor
             {
                 w.append("package " + pkgName + ";\n");
                 w.append("\n");
+                w.append("import javax.annotation.Generated;\n");
                 w.append("import javax.persistence.metamodel.*;\n");
                 w.append("\n");
+                w.append("@Generated(value=\"" + this.getClass().getName() + "\")\n");
                 w.append("@StaticMetamodel(" + classSimpleName + ".class)\n");
                 w.append("public class " + classSimpleName + CLASS_NAME_SUFFIX);
                 if (superEl != null)
