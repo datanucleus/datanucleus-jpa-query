@@ -284,6 +284,7 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                     else
                                     {
                                         String name = type.toString();
+
                                         TypeMirror target = null;
                                         for (int i=0;i<annotationsWithTargetEntity.length;i++)
                                         {
@@ -302,6 +303,19 @@ public class JPACriteriaProcessor extends AbstractProcessor
                                         {
                                             // This is a generic type, so replace with the bound type; equates to "T extends MyOtherType" and putting "MyOtherType" in
                                             name = genericLookups.get(name).toString();
+                                        }
+                                        else
+                                        {
+                                            if (name.charAt(0) == '@' && name.indexOf(" ") > 0)
+                                            {
+                                                // When we have a field 
+                                                // @NotNull @Size(max=32) String myField
+                                                // This sometimes gives type.toString() as 
+                                                // @javax.validation.constraints.NotNull,@javax.validation.constraints.Size(max=32) java.lang.String
+                                                // TODO WHY?????
+                                                // so remove the annotations. Is there a cleaner way?
+                                                name = name.substring(name.indexOf(" ") +1).trim();
+                                            }
                                         }
                                         w.append(name);
                                     }
