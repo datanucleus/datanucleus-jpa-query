@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>datanucleus-jpa-query</artifactId>
-    <version>6.0.0-m2-SNAPSHOT</version>
+    <version>6.0.0-release-SNAPSHOT</version>
 
     <name>DataNucleus JPA Query</name>
     <description>
@@ -36,8 +36,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.9</source>
-                    <target>1.9</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument> -proc:none</compilerArgument>
                 </configuration>
             </plugin>
